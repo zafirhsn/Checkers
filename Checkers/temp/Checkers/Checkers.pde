@@ -1,8 +1,6 @@
-//This comment is used for testing
 private PImage bg;
 private PImage fg;
 private PImage backarrow;
-
 private PImage b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12;
 private PImage r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12;
 
@@ -16,7 +14,18 @@ private int helpboxY = 370;
 private boolean menuScreen = true;
 private boolean boardScreen = false;
 private boolean helpScreen = false;
-
+/*
+public class Button {
+  private int x_cor;
+  private int y_cor;
+  public Button(int x_cor, int y_cor, String text) {
+    rect(x_cor, y_cor, 170, 70, 6, 6, 6, 6);
+    fill(0);
+  textSize(50);
+  textAlign(RIGHT, CENTER);
+  text("START", (width-100)/2, height/2);
+}
+*/
 
 void setup() {
   size(800, 800);
@@ -88,7 +97,7 @@ void hoverMenuScreen() {
     createStart();
   }
   if (overHelp()) {
-    fill(200,0,0,50);
+    fill(0,200,0,50);
     createHelp();
   }
   else {
@@ -99,7 +108,7 @@ void hoverMenuScreen() {
 
 void hoverBack() {
   if (overBack()) {
-     fill(180,0,0); 
+     fill(0,200,0,50); 
      createBack();
   }
  else {
