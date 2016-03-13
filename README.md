@@ -1,7 +1,6 @@
 # Checkers
------------------------
-Checkers board game created in Processing language
 =======================
+Checkers board game created in Processing language
 Zafir Hasan
 
 Change Log
