@@ -16,8 +16,9 @@
 | 1/27/15 | Started work on gameplay; could not finish; will try again|
 | 3/12/16 | Placed code in new repository; rewriting game using classes; Button class started|
 | 3/13/16 | Button class finished|
-----------------------------------------------------------------
+
 ##Bug List
+--------------------
 |  Bug                                                   |  Status |  Date  |
 |:-------------------------------------------------------|:--------|:-------|
 |Button text not alligning properly                      | Fixed   | 3/13/16|
