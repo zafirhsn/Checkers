@@ -51,18 +51,20 @@ public class Button {
   }
 }
 
+//==============================================================
 public abstract class Screen {
-  private int state;
   private PImage bg;
   private PImage fg;
   private int fg_length;
   private int fg_height;
+  private boolean state;
   
   public Screen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     bg = loadImage(bg_pic);
     fg = loadImage(fg_pic);
     this.fg_length = fg_length;
     this.fg_height = fg_height;
+    state = false;
   }
   
   public void screenDraw() {
@@ -73,6 +75,14 @@ public abstract class Screen {
   
   public void screenClear() {
     background(255);
+  }
+  
+  public boolean getState() {
+    return state;
+  }
+  
+  public void setState(boolean state) {
+    this.state = state;
   }
 }
 
@@ -87,23 +97,38 @@ public class Help extends Screen {
     super(bg_pic, fg_pic, fg_length, fg_height);
   }
 }
-  
 
+public class boardScreen extends Screen {
+    public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
+      super(bg_pic, fg_pic, fg_length, fg_height);
+    }
+    
+    public void screenDraw() {
+      image(bg, 0, 0);
+      image((width-fg_length)/2, (height-fg_height)/2, fg_length, fg_height);
+    }
+}
+  
+private Button start;
+private Button help;
+private Button title;
+private Menu menu;
 void setup() {
   size(800, 800);
- 
+  start = new Button(185, 370, 180, 70, "START");;
+  help = new Button(450, 370, 180, 70, "HELP");
+  title = new Button(135, 110, 550, 100, "CHECKERS");
+  menu = new Menu("wood.png", "checkers.jpg", 650, 650);
+  menu.screenDraw();
+  //menu.screenClear();
+  //title.drawButton();
 }
 
-public int setup_status = 0;
+
+
 void draw() {
-  if (setup_status == 0) {
-    Menu menu = new Menu("wood.png", "checkers.jpg", 650, 650);
-    menu.screenDraw();
-    Button help = new Button(450, 370, 180, 70, "HELP");
-    Button start = new Button(185, 370, 180, 70, "START");
-    Button title = new Button(135, 110, 550, 100, "CHECKERS");
-    setup_status = 1;
-  }
+  start.drawButton();
+  /*
   help.drawButton();
   if (start.overButton()) {
     start.drawHoverButton();
@@ -111,4 +136,5 @@ void draw() {
   else {
     start.drawButton();
   }
+  */
 }
