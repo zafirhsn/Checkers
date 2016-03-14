@@ -16,7 +16,7 @@
 | 1/27/15 | Started work on gameplay; could not finish; will try again|
 | 3/12/16 | Placed code in new repository; rewriting game using classes; Button class started|
 | 3/13/16 | Button class finished|
-| 3/14/16 | Screen class started;|
+| 3/14/16 | Screen class started; buttons placed inside menu class|
 
 ##Bug List
 --------------------
