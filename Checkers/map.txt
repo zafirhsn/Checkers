@@ -1,0 +1,37 @@
+Class and Method Map
+=====================
+class Button(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void drawButton()
+	- void drawHoverButton()
+	- boolean overButton()
+	- boolean clickButton()
+
+abstract class Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
+	- abstract void runScreen()
+	- abstract void screenDraw()
+	- void screenClear()
+	- boolean getState()
+	- void setState(boolean state)
+	- PImage getBG()
+	- void setBG(PImage bg)
+	- PImage getFG()
+	- int getFG_l()
+	- int getFG_h()
+
+class Menu extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
+	- void setStart(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void setHelp(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void setTitle(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void runScreen()
+
+class Help extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
+	- void setBack(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void screenDraw()
+	- void runScreen()
+	- void drawRules()
+
+class boardScreen extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
+	- void screenDraw()
+	- void runScreen()
+
+
