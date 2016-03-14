@@ -16,6 +16,7 @@
 | 1/27/15 | Started work on gameplay; could not finish; will try again|
 | 3/12/16 | Placed code in new repository; rewriting game using classes; Button class started|
 | 3/13/16 | Button class finished|
+| 3/14/16 | Screen class started;|
 
 ##Bug List
 --------------------
@@ -23,6 +24,7 @@
 |:-------------------------------------------------------|:--------|:-------|
 |Button text not alligning properly                      | Fixed   | 3/13/16|
 |Hover method not coloring button                        | Fixed   | 3/13/16|
+|Unable to instantiate objects in setup()                | Fixed   | 3/14/16|
 
 
 
