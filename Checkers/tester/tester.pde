@@ -105,6 +105,7 @@ public class Menu extends Screen {
     tint(255, 150);
     image(getFG(), (width-getFG_l())/2, 
       (height-getFG_h())/2, getFG_l(), getFG_h());
+    title.drawButton();
   }
   public void setStart(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     start = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
@@ -115,26 +116,18 @@ public class Menu extends Screen {
   public void setTitle(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     title = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
-  public int runScreen() {
-    if (help.clickButton() == false && start.clickButton() == false) {
-      if (start.overButton()) {
-        start.drawHoverButton();
-      }
-      else {
-        start.drawButton();
-      }
-      if (help.overButton()) {
-        help.drawHoverButton();
-      }
-      else {
-        help.drawButton();
-      }
+  public void runScreen() {
+    if (start.overButton()) {
+      start.drawHoverButton();
     }
-    else if (start.clickButton()) {
-      return 1;
+    else {
+      start.drawButton();
     }
-    else if (help.clickButton()) {
-      return 2;
+    if (help.overButton()) {
+      help.drawHoverButton();
+    }
+    else {
+      help.drawButton();
     }
   }
 }
@@ -247,8 +240,13 @@ public class boardScreen extends Screen {
     println("Gay");
   }
 }
-  
 
+/*
+public class Piece {
+
+  
+}
+*/  
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
@@ -274,6 +272,62 @@ void setup() {
 }
 
 void draw() {
-  if (
-  } 
+  if (menu.getState() == true) {
+    menu.runScreen();
+    if (menu.help.clickButton()) {
+      help_screen.screenDraw();
+      help_screen.screenDraw();
+      help_screen.screenDraw();
+      help_screen.screenDraw();
+      help_screen.screenDraw();
+      help_screen.screenDraw();
+      menu.setState(false);
+      help_screen.setState(true);
+      board_screen.setState(false);
+    }
+    else if (menu.start.clickButton()) {
+      board_screen.screenDraw();
+      board_screen.screenDraw();
+      board_screen.screenDraw();
+      board_screen.screenDraw();
+      board_screen.screenDraw();
+      board_screen.screenDraw();
+      menu.setState(false);
+      board_screen.setState(true);
+      help_screen.setState(false);
+    }
+  }
+  if (help_screen.getState() == true) {
+    help_screen.runScreen();
+    if (help_screen.back.clickButton()) {
+      menu.screenDraw();
+      menu.screenDraw();
+      menu.screenDraw();
+      menu.screenDraw();
+      menu.screenDraw();
+      menu.screenDraw();
+      help_screen.setState(false);
+      menu.setState(true);
+      board_screen.setState(false);
+    }
+  }
+  if (board_screen.getState() == true) {
+      loadPixels();
+      int a = 60075;
+      int z = 60075;
+      for (int i=0;i<650;i++) {
+        for (int h=0;h<650;h++){ 
+          if (pixels[z] > color(150)) {
+            pixels[z] = color(255);
+            }
+          else {
+            pixels[z] = color(0);
+          }
+          z++;
+        }
+        a += 800;
+        z = a;
+      }
+     updatePixels(); 
+  }
 }
