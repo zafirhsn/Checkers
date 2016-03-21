@@ -31,6 +31,7 @@ class Help extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_he
 	- void drawRules()
 
 class boardScreen extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
+	- *void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
 	- void screenDraw()
 	- void runScreen()
 

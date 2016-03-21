@@ -313,7 +313,18 @@ void draw() {
   }
   if (board_screen.getState() == true) {
       loadPixels();
-      int a = 60075;
+      for (int i = 0; i < 200000; i++) {
+        if (pixels[i] > color(150)) {
+          pixels[i] = color(255);
+        }
+        else {
+          pixels[i] = color(0);
+        }
+        //delay(100);
+      }
+      updatePixels();
+      /*
+      int a = 60075; 
       int z = 60075;
       for (int i=0;i<650;i++) {
         for (int h=0;h<650;h++){ 
@@ -329,5 +340,6 @@ void draw() {
         z = a;
       }
      updatePixels(); 
+     */
   }
 }
