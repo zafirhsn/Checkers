@@ -223,35 +223,59 @@ public class Help extends Screen {
 }
 
 public class boardScreen extends Screen {
-  private Button back_game;
+  private Button exit_game;
   
   public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
   }
   public void setBack(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
-    back_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
+    exit_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
   public void screenDraw() {
     image(getBG(), 0, 0);
     image(getFG(), (width-getFG_l())/2, (height-getFG_h())/2,
       getFG_l(), getFG_h());
+    exit_game.drawButton();
   }
   public void runScreen() {
-    println("Gay");
+    if (exit_game.overButton()) {
+      exit_game.drawHoverButton();
+    }
+    else {
+      exit_game.drawButton();
+    }
   }
 }
 
-/*
 public class Piece {
+  private int location;
+  private PImage pic;
+  private int x_cor;
+  private int y_cor;
+  private int pic_width;
+  private int pic_height;
 
+  public Piece(String pic_name, int x_cor, int y_cor) {
+    pic = loadImage(pic_name);
+    this.x_cor = x_cor;
+    this.y_cor = y_cor;
+    pic_width = 70;
+    pic_height = 70;
+  }
   
+  public void pieceDraw() {
+    image(pic, x_cor, y_cor, pic_width, pic_height);
+  }
+    
 }
-*/  
+  
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
+private Piece r1;
 
 void setup() {
+  //Menu screen is created, all buttons are setup and drawn on Menu screen
   size(800, 800);
   menu = new Menu("wood.png", "checkers.jpg", 650, 650);
   menu.setStart(185, 370, 180, 70, "START", 50);
@@ -263,11 +287,17 @@ void setup() {
   menu.start.drawButton();
   menu.help.drawButton();
   
+  //Help screen is instantiated, not drawn
   help_screen = new Help("wood.png", "checkers.jpg", 650, 650);
   help_screen.setBack(15, 15, 100, 50, "BACK", 30);
   help_screen.setState(false);
   
+  //Board screen is instantiated, not drawn
   board_screen = new boardScreen("wood.png", "checkers.jpg", 650, 650);
+  board_screen.setBack(15, 15, 100, 50, "EXIT", 30);
+  board_screen.setState(false);
+  
+  r1 = new Piece("redchecker.png", 600, 665);
   
 }
 
@@ -312,6 +342,10 @@ void draw() {
       board_screen.setState(false);
     }
   }
+  if (board_screen.getState() == true) {
+    r1.pieceDraw();
+  }
+  /*
   if (s == false) {
     if (board_screen.getState() == true) {
         loadPixels();
@@ -333,7 +367,6 @@ void draw() {
         s = true;
         updatePixels();
     }
-      /*
       int a = 60075; 
       int z = 60075;
       for (int i=0;i<650;i++) {
@@ -350,6 +383,15 @@ void draw() {
         z = a;
       }
      updatePixels(); 
-     */
+    
+  }
+  */
+    if (mousePressed && (mouseButton == LEFT)) {
+      loadPixels();
+      delay(1000);
+      println(mouseX);
+      print(mouseY);
+      println();
+      pixels[mouseY*width+mouseX] = #000000;
   }
 }
