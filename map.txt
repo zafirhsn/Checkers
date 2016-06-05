@@ -7,7 +7,7 @@ class Button(int x_cor, int y_cor, int b_length, int b_height, String text, int 
 	- boolean clickButton()
 
 abstract class Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
-	- abstract void runScreen()
+	- abstract void screenRun()
 	- abstract void screenDraw()
 	- void screenClear()
 	- boolean getState()
@@ -31,8 +31,13 @@ class Help extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_he
 	- void drawRules()
 
 class boardScreen extends Screen(String bg_pic, String fg_pic, int fg_length, int fg_height)
-	- *void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
+	- void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size)
 	- void screenDraw()
 	- void runScreen()
 
+class Piece(String pic_name, int x_cor, int y_cor) 
+	- void drawPiece()
+	- void drawHoverPiece()
+	- boolean overPiece()
+	- boolean clickPiece()
 

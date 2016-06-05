@@ -64,7 +64,7 @@ public abstract class Screen {
     this.fg_height = fg_height;
     state = false;
   }
-  public abstract void runScreen();
+  public abstract void screenRun();
   public abstract void screenDraw();
   public void screenClear() {
     background(255);
@@ -116,7 +116,7 @@ public class Menu extends Screen {
   public void setTitle(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     title = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
-  public void runScreen() {
+  public void screenRun() {
     if (start.overButton()) {
       start.drawHoverButton();
     }
@@ -142,14 +142,14 @@ public class Help extends Screen {
     back = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
   public void screenDraw() {
-    image(super.getBG(), 0, 0);
+    image(getBG(), 0, 0);
     fill(255);
     rect (50, 80, 700, 700, 6, 6, 6, 6);
     back.drawButton();
     drawRules();
   }
     
-  public void runScreen() {  
+  public void screenRun() {  
     if (back.overButton()) {
       back.drawHoverButton();
     }
@@ -228,7 +228,7 @@ public class boardScreen extends Screen {
   public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
   }
-  public void setBack(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
+  public void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     exit_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
   public void screenDraw() {
@@ -237,7 +237,7 @@ public class boardScreen extends Screen {
       getFG_l(), getFG_h());
     exit_game.drawButton();
   }
-  public void runScreen() {
+  public void screenRun() {
     if (exit_game.overButton()) {
       exit_game.drawHoverButton();
     }
@@ -266,6 +266,12 @@ public class Piece {
   public void pieceDraw() {
     image(pic, x_cor, y_cor, pic_width, pic_height);
   }
+  
+  /*
+  public void hoverPiece() {
+    
+  }
+  */
     
 }
   
@@ -294,7 +300,7 @@ void setup() {
   
   //Board screen is instantiated, not drawn
   board_screen = new boardScreen("wood.png", "checkers.jpg", 650, 650);
-  board_screen.setBack(15, 15, 100, 50, "EXIT", 30);
+  board_screen.setExit(15, 15, 100, 50, "EXIT", 30);
   board_screen.setState(false);
   
   r1 = new Piece("redchecker.png", 600, 665);
@@ -343,6 +349,7 @@ void draw() {
     }
   }
   if (board_screen.getState() == true) {
+    board_screen.runScreen();
     r1.pieceDraw();
   }
   /*
@@ -385,7 +392,7 @@ void draw() {
      updatePixels(); 
     
   }
-  */
+  
     if (mousePressed && (mouseButton == LEFT)) {
       loadPixels();
       delay(1000);
@@ -394,4 +401,5 @@ void draw() {
       println();
       pixels[mouseY*width+mouseX] = #000000;
   }
+  */
 }
