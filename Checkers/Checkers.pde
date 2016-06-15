@@ -278,7 +278,7 @@ public class Piece {
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
-private Piece r1;
+private Piece r1, r2, r3, r4, r5, r6, r7;
 
 void setup() {
   //Menu screen is created, all buttons are setup and drawn on Menu screen
@@ -303,14 +303,20 @@ void setup() {
   board_screen.setExit(15, 15, 100, 50, "EXIT", 30);
   board_screen.setState(false);
   
-  r1 = new Piece("redchecker.png", 600, 665);
+  r1 = new Piece("redchecker.png", 570, 650);
+  r2 = new Piece("redchecker.png", 410, 650);
+  r3 = new Piece("redchecker.png", 250, 650);
+  r4 = new Piece("redchecker.png", 85, 650);
+  r5 = new Piece("redchecker.png", 655, 575);
+  r6 = new Piece("redchecker.png", 490, 575);
+  r7 = new Piece("redchecker.png", 330, 575);
   
 }
 
 private boolean s = false;
 void draw() {
   if (menu.getState() == true) {
-    menu.runScreen();
+    menu.screenRun();
     if (menu.help.clickButton()) {
       help_screen.screenDraw();
       help_screen.screenDraw();
@@ -335,7 +341,7 @@ void draw() {
     }
   }
   if (help_screen.getState() == true) {
-    help_screen.runScreen();
+    help_screen.screenRun();
     if (help_screen.back.clickButton()) {
       menu.screenDraw();
       menu.screenDraw();
@@ -349,8 +355,15 @@ void draw() {
     }
   }
   if (board_screen.getState() == true) {
-    board_screen.runScreen();
+    board_screen.screenRun();
     r1.pieceDraw();
+    r2.pieceDraw();
+    r3.pieceDraw();
+    r4.pieceDraw();
+    r5.pieceDraw();
+    r6.pieceDraw();
+    r6.pieceDraw();
+    r7.pieceDraw();
   }
   /*
   if (s == false) {
