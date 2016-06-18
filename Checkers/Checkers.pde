@@ -278,7 +278,8 @@ public class Piece {
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
-private Piece r1, r2, r3, r4, r5, r6, r7;
+private ArrayList<Piece> red_pieces;
+private ArrayList<Piece> black_pieces;
 
 void setup() {
   //Menu screen is created, all buttons are setup and drawn on Menu screen
@@ -303,6 +304,12 @@ void setup() {
   board_screen.setExit(15, 15, 100, 50, "EXIT", 30);
   board_screen.setState(false);
   
+  int x = 570;
+  int y = 650;
+  for (int i = 0; i < 12; i++) {
+    Piece red = new Piece("redchecker.png", x, y);
+    red_pieces.add(i, red);
+   
   r1 = new Piece("redchecker.png", 570, 650);
   r2 = new Piece("redchecker.png", 410, 650);
   r3 = new Piece("redchecker.png", 250, 650);
