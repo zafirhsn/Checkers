@@ -224,6 +224,11 @@ public class Help extends Screen {
 
 public class boardScreen extends Screen {
   private Button exit_game;
+  private ArrayList<Piece> black_pieces;
+  private ArrayList<Piece> red_pieces;
+  private boolean red_turn;
+  private boolean black_turn;
+  private ArrayList<Integer> locations;
   
   public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
@@ -231,11 +236,88 @@ public class boardScreen extends Screen {
   public void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     exit_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
+  
+  final public boolean getRed_turn() {
+    return red_turn;
+  }
+  
+  final public boolean getBlack_turn() {
+    return black_turn;
+  }
+  
+  public void setRed_turn(boolean x) {
+    red_turn = x;
+  }
+  
+  public void setBlack_turn(boolean x) {
+    black_turn = x;
+  }
+  
+  public void setPieces() {
+    locations = new ArrayList<Integer>();
+    black_pieces = new ArrayList<Piece>();
+    int x = 197;
+    int y = 113;
+    for (int i = 0; i < 12; i++) {
+      if (i == 4) {
+        x = 113;
+        y = 195;
+      }
+      if (i == 8) {
+        x = 197;
+        y = 277;
+      }
+      Piece black = new Piece("BLACK",x,y,65,65);
+      locations.add(x);
+      locations.add(y);
+      black_pieces.add(black);
+      x += 163;
+    }
+    
+    x = 113;
+    y = 358;
+    for (int i = 0; i < 8; i++) {
+      if (i == 4) {
+        x = 197;
+        y = 438;
+      }
+      locations.add(x);
+      locations.add(y);
+    }
+    
+    
+ //All red pieces are instantiated using a for loop that increments x and y cors
+     red_pieces = new ArrayList<Piece>();
+     x = 115;
+     y = 684;
+       for (int i = 0; i < 12; i++) {
+        if (i == 4) {
+          x = 197;
+          y = 600;
+        }
+        if (i == 8) {
+          x = 113;
+          y = 520;
+        }
+        Piece red = new Piece("RED",x,y,65,65);
+        locations.add(x);
+        locations.add(y);
+        red_pieces.add(red);
+        x += 163;
+       }
+  }
   public void screenDraw() {
     image(getBG(), 0, 0);
     image(getFG(), (width-getFG_l())/2, (height-getFG_h())/2,
       getFG_l(), getFG_h());
     exit_game.drawButton();
+    for (int i = 0; i < black_pieces.size(); i++) {
+      (black_pieces.get(i)).pieceDraw();
+    }
+    for (int i = 0; i < red_pieces.size(); i++) {
+      (red_pieces.get(i)).pieceDraw();
+    }
+    
   }
   public void screenRun() {
     if (exit_game.overButton()) {
@@ -244,11 +326,20 @@ public class boardScreen extends Screen {
     else {
       exit_game.drawButton();
     }
+    /*
+    if (red_turn) {
+      for (int i = 0; i < red_pieces.size(); i++) {
+        if ((red_pieces.get(i).overPiece()) &&  mousePressed && get(mouseX,mouseY) == #FF3232 ) {
+          
+        }
+      }
+  }
+  */
   }
 }
 
 public class Piece {
-  private int location;
+  //private int location;
   //private PImage pic;
   private String p_color;
   private int x_cor;
@@ -276,6 +367,11 @@ public class Piece {
     //image(pic, x_cor, y_cor, pic_width, pic_height);
   }
   
+  public boolean overPiece() {
+    return ((mouseX >= x_cor - (pic_width / 2)) && (mouseX <= x_cor - (pic_width / 2)) &&
+        (mouseY >= y_cor - (pic_height / 2)) && (mouseY <= y_cor - (pic_width / 2)));   
+  }
+  
   /*
   public void hoverPiece() {
     
@@ -288,15 +384,8 @@ public class Piece {
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
-private Piece b1;
-private Piece b2;
-private Piece b3;
-private Piece b4;
-private Piece b5;
-private Piece b6;
-
-//private ArrayList<Piece> red_pieces;
-//private ArrayList<Piece> black_pieces;
+private ArrayList<Piece> red_pieces;
+private ArrayList<Piece> black_pieces;
 
 void setup() {
   //Menu screen is created, all buttons are setup and drawn on Menu screen
@@ -319,31 +408,8 @@ void setup() {
   //Board screen is instantiated, not drawn
   board_screen = new boardScreen("wood.png", "checkers.jpg", 650, 650);
   board_screen.setExit(15, 15, 100, 50, "EXIT", 30);
+  board_screen.setPieces();
   board_screen.setState(false);
- 
-  b1 = new Piece("BLACK",197,113,65,65);
-  b2 = new Piece("BLACK",358,113,65,65);
-  b3 = new Piece("BLACK",520,113,65,65);
-  b4 = new Piece("BLACK",113,194,65,65);
-  b5 = new Piece("BLACK",276,195,65,65);
-  b6 = new Piece("BLACK",438,196,65,65);
-  
-  /*
-  int x = 570;
-  int y = 650;
-  for (int i = 0; i < 12; i++) {
-    Piece red = new Piece("redchecker.png", x, y);
-    red_pieces.add(i, red);
-   
-  r1 = new Piece("redchecker.png", 570, 650);
-  r2 = new Piece("redchecker.png", 410, 650);
-  r3 = new Piece("redchecker.png", 250, 650);
-  r4 = new Piece("redchecker.png", 85, 650);
-  r5 = new Piece("redchecker.png", 655, 575);
-  r6 = new Piece("redchecker.png", 490, 575);
-  r7 = new Piece("redchecker.png", 330, 575);
-  }
-  */
 }
 
 void returnClicks() {
@@ -354,11 +420,6 @@ void returnClicks() {
   }
 }
 
-void drawEllipse() {
-  ellipse(400,400,100,100); 
-}
-
-private boolean s = false;
 void draw() {
   if (menu.getState() == true) {
     menu.screenRun();
@@ -401,12 +462,14 @@ void draw() {
   }
   if (board_screen.getState() == true) {
     board_screen.screenRun();
-    b1.pieceDraw();
-    b2.pieceDraw();
-    b3.pieceDraw();
-    b4.pieceDraw();
-    b5.pieceDraw();
-    b6.pieceDraw();
+    /*
+    for (int i = 0; i < black_pieces.size(); i++) {
+      (black_pieces.get(i)).pieceDraw();
+    }
+    for (int i = 0; i < red_pieces.size(); i++) {
+      (red_pieces.get(i)).pieceDraw();
+    }
+    */
     returnClicks();
   }
   /*
@@ -448,15 +511,6 @@ void draw() {
       }
      updatePixels(); 
     
-  }
-  
-    if (mousePressed && (mouseButton == LEFT)) {
-      loadPixels();
-      delay(1000);
-      println(mouseX);
-      print(mouseY);
-      println();
-      pixels[mouseY*width+mouseX] = #000000;
   }
   */
 }
