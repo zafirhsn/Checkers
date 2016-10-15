@@ -249,22 +249,31 @@ public class boardScreen extends Screen {
 
 public class Piece {
   private int location;
-  private PImage pic;
+  //private PImage pic;
+  private String p_color;
   private int x_cor;
   private int y_cor;
   private int pic_width;
   private int pic_height;
 
-  public Piece(String pic_name, int x_cor, int y_cor) {
-    pic = loadImage(pic_name);
+  public Piece(String p_color, int x_cor, int y_cor, int pic_width, int pic_height) {
+    //pic = loadImage(pic_name);
     this.x_cor = x_cor;
     this.y_cor = y_cor;
-    pic_width = 70;
-    pic_height = 70;
+    this.pic_width = 70;
+    this.pic_height = 70;
+    this.p_color = p_color;
   }
   
   public void pieceDraw() {
-    image(pic, x_cor, y_cor, pic_width, pic_height);
+    if (p_color.toLowerCase().equals("red")) {
+      fill(255,50,50);
+    }
+    else {
+      fill(50,50,50);
+    }
+    ellipse(x_cor, y_cor, pic_width, pic_height); 
+    //image(pic, x_cor, y_cor, pic_width, pic_height);
   }
   
   /*
@@ -272,14 +281,22 @@ public class Piece {
     
   }
   */
+  
     
 }
   
 private Menu menu;
 private Help help_screen;
 private boardScreen board_screen; 
-private ArrayList<Piece> red_pieces;
-private ArrayList<Piece> black_pieces;
+private Piece b1;
+private Piece b2;
+private Piece b3;
+private Piece b4;
+private Piece b5;
+private Piece b6;
+
+//private ArrayList<Piece> red_pieces;
+//private ArrayList<Piece> black_pieces;
 
 void setup() {
   //Menu screen is created, all buttons are setup and drawn on Menu screen
@@ -303,7 +320,15 @@ void setup() {
   board_screen = new boardScreen("wood.png", "checkers.jpg", 650, 650);
   board_screen.setExit(15, 15, 100, 50, "EXIT", 30);
   board_screen.setState(false);
+ 
+  b1 = new Piece("BLACK",197,113,65,65);
+  b2 = new Piece("BLACK",358,113,65,65);
+  b3 = new Piece("BLACK",520,113,65,65);
+  b4 = new Piece("BLACK",113,194,65,65);
+  b5 = new Piece("BLACK",276,195,65,65);
+  b6 = new Piece("BLACK",438,196,65,65);
   
+  /*
   int x = 570;
   int y = 650;
   for (int i = 0; i < 12; i++) {
@@ -317,7 +342,20 @@ void setup() {
   r5 = new Piece("redchecker.png", 655, 575);
   r6 = new Piece("redchecker.png", 490, 575);
   r7 = new Piece("redchecker.png", 330, 575);
-  
+  }
+  */
+}
+
+void returnClicks() {
+  if (mousePressed) {
+    delay(100);
+    println(mouseX, mouseY);
+    set(mouseX, mouseY, 0);
+  }
+}
+
+void drawEllipse() {
+  ellipse(400,400,100,100); 
 }
 
 private boolean s = false;
@@ -363,14 +401,13 @@ void draw() {
   }
   if (board_screen.getState() == true) {
     board_screen.screenRun();
-    r1.pieceDraw();
-    r2.pieceDraw();
-    r3.pieceDraw();
-    r4.pieceDraw();
-    r5.pieceDraw();
-    r6.pieceDraw();
-    r6.pieceDraw();
-    r7.pieceDraw();
+    b1.pieceDraw();
+    b2.pieceDraw();
+    b3.pieceDraw();
+    b4.pieceDraw();
+    b5.pieceDraw();
+    b6.pieceDraw();
+    returnClicks();
   }
   /*
   if (s == false) {
