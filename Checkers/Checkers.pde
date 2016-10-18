@@ -232,6 +232,8 @@ public class boardScreen extends Screen {
   
   public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
+    red_turn = false;
+    black_turn = false;
   }
   public void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     exit_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
@@ -327,15 +329,44 @@ public class boardScreen extends Screen {
       exit_game.drawButton();
     }
     /*
+    check if someone one
+      - if someone won, display winner screen, and exit to main menu or play again
+    otherwise, see whose turn it is
+      - disable the other player's peices
+    player hovers over and clicks their piece
+      - piece becomes bigger
+      - player moves their piece
+      - program checks if move is valid (king / diagonal)
+      - program snaps piece onto closest checker / puts it back to where it was
+      - if player kills a piece, remove piece
+      - end of board becomes king
+      */
+    
     if (red_turn) {
       for (int i = 0; i < red_pieces.size(); i++) {
         if ((red_pieces.get(i).overPiece()) &&  mousePressed && get(mouseX,mouseY) == #FF3232 ) {
-          
+            println("Clicked piece");
+            /*
+            image(getBG(), 0, 0);
+            image(getFG(), (width-getFG_l())/2, (height-getFG_h())/2,
+            getFG_l(), getFG_h());
+            for (int k = 0; k < black_pieces.size(); k++) {
+              black_pieces.get(k).pieceDraw();
+            }
+            for (int j = 0; j < red_pieces.size(); j++) {
+              if (j == i) {
+                red_pieces.get(i).pieceDraw(mouseX, mouseY);
+              }
+              else {
+                red_pieces.get(j).pieceDraw();
+              }
+            }
         }
+        */
       }
+    }
   }
-  */
-  }
+}
 }
 
 public class Piece {
@@ -346,6 +377,7 @@ public class Piece {
   private int y_cor;
   private int pic_width;
   private int pic_height;
+  private boolean king; 
 
   public Piece(String p_color, int x_cor, int y_cor, int pic_width, int pic_height) {
     //pic = loadImage(pic_name);
@@ -354,6 +386,31 @@ public class Piece {
     this.pic_width = 70;
     this.pic_height = 70;
     this.p_color = p_color;
+    king = false;
+  }
+  
+  final public boolean isKing() {
+    return king; 
+  }
+  
+  final public int getX() {
+    return x_cor;
+  }
+  
+  final public int getY() {
+    return y_cor;
+  }
+  
+  public void setKing(boolean x) {
+    king = x;
+  }
+  
+  public void setX(int x) {
+    x_cor = x;
+  }
+  
+  public void setY(int y) {
+    y_cor = y;
   }
   
   public void pieceDraw() {
@@ -364,6 +421,17 @@ public class Piece {
       fill(50,50,50);
     }
     ellipse(x_cor, y_cor, pic_width, pic_height); 
+    //image(pic, x_cor, y_cor, pic_width, pic_height);
+  }
+  
+  public void pieceDraw(int mouseX, int mouseY) {
+     if (p_color.toLowerCase().equals("red")) {
+      fill(255,50,50);
+    }
+    else {
+      fill(50,50,50);
+    }
+    ellipse(mouseX, mouseY, pic_width, pic_height); 
     //image(pic, x_cor, y_cor, pic_width, pic_height);
   }
   
@@ -412,6 +480,7 @@ void setup() {
   board_screen.setState(false);
 }
 
+/*
 void returnClicks() {
   if (mousePressed) {
     delay(100);
@@ -419,6 +488,7 @@ void returnClicks() {
     set(mouseX, mouseY, 0);
   }
 }
+*/
 
 void draw() {
   if (menu.getState() == true) {
@@ -461,6 +531,7 @@ void draw() {
     }
   }
   if (board_screen.getState() == true) {
+    board_screen.setRed_turn(true);
     board_screen.screenRun();
     /*
     for (int i = 0; i < black_pieces.size(); i++) {
@@ -470,7 +541,7 @@ void draw() {
       (red_pieces.get(i)).pieceDraw();
     }
     */
-    returnClicks();
+    //returnClicks();
   }
   /*
   if (s == false) {
