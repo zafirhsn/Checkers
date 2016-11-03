@@ -4,9 +4,13 @@ public class Help extends Screen {
   public Help(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
   }
+  
+  //Initialize the back button 
   public void setBack(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     back = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
+  
+  //Draw the help screen (background wood, back button, rectangle of rules)
   public void screenDraw() {
     image(getBG(), 0, 0);
     fill(255);
@@ -14,7 +18,10 @@ public class Help extends Screen {
     back.drawButton();
     drawRules();
   }
-    
+  
+  //While the current screen is the help screen, wheck to see if the user
+  //hovers over the button, otherwise just keep drawing the button
+  //If the user is hovering over, drwa the shaded button
   public void screenRun() {  
     if (back.overButton()) {
       back.drawHoverButton();
@@ -23,6 +30,8 @@ public class Help extends Screen {
       back.drawButton();
     }
   }
+  
+  //All the rules
   void drawRules() {
     fill(0);
     

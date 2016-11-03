@@ -2,9 +2,9 @@ public class boardScreen extends Screen {
   private Button exit_game;
   private ArrayList<Piece> black_pieces;
   private ArrayList<Piece> red_pieces;
+  private ArrayList<Integer> locations;
   private boolean red_turn;
   private boolean black_turn;
-  private ArrayList<Integer> locations;
   
   public boardScreen(String bg_pic, String fg_pic, int fg_length, int fg_height) {
     super(bg_pic, fg_pic, fg_length, fg_height);
@@ -14,6 +14,8 @@ public class boardScreen extends Screen {
     black_pieces = new ArrayList<Piece>();
     locations = new ArrayList<Integer>();
   }
+  
+  //Initialize the exit button
   public void setExit(int x_cor, int y_cor, int b_length, int b_height, String text, int text_size) {
     exit_game = new Button(x_cor, y_cor, b_length, b_height, text, text_size);
   }
@@ -34,6 +36,9 @@ public class boardScreen extends Screen {
     black_turn = x;
   }
   
+  
+  //Put each piece in the oppropriate place and record each location
+  //Put the locations in an array to access later to determine valid moves
   public void setPieces() {
     int x = 197;
     int y = 113;
@@ -84,6 +89,8 @@ public class boardScreen extends Screen {
         x += 163;
        }
   }
+  
+  //Draw the screen (background, chess board, the exit button, the pieces
   public void screenDraw() {
     image(getBG(), 0, 0);
     image(getFG(), (width-getFG_l())/2, (height-getFG_h())/2,
@@ -97,6 +104,8 @@ public class boardScreen extends Screen {
     }
     
   }
+  
+  //Chck if exit button is hovered over 
   public void screenRun() {
     if (exit_game.overButton()) {
       exit_game.drawHoverButton();

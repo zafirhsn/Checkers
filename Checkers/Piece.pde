@@ -42,6 +42,7 @@ public class Piece {
     y_cor = y;
   }
   
+  //Draw the red or black peice
   public void pieceDraw() {
     if (p_color.toLowerCase().equals("red")) {
       fill(255,50,50);
@@ -53,6 +54,7 @@ public class Piece {
     //image(pic, x_cor, y_cor, pic_width, pic_height);
   }
   
+  //Draw the red or black piece where the mouse is 
   public void pieceDraw(int mouseX, int mouseY) {
      if (p_color.toLowerCase().equals("red")) {
       fill(255,50,50);
@@ -64,6 +66,7 @@ public class Piece {
     //image(pic, x_cor, y_cor, pic_width, pic_height);
   }
   
+  //Check to see if the mouse is over a piece
   public boolean overPiece() {
     return ((mouseX >= x_cor - (pic_width / 2)) && (mouseX <= x_cor + (pic_width / 2)) &&
             (mouseY >= y_cor - (pic_height / 2)) && (mouseY <= y_cor + (pic_height / 2)));
